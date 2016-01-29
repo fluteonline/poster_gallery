@@ -6,6 +6,13 @@ function g(selector){
     var method = selector.substr(0,1) == '.'?'getElementsByClassName':'getElementById';
     return document[method](selector.substr(1));
 }
+//随机生成一个值 支持取值范围 random([min,max])
+function random(range){
+    var max = Math.max(range[0],range[1]);
+    var min = Math.min(range[0],range[1]);
+    var diff = max-min;
+    return Math.floor(Math.random()*diff+min);
+}
 
 //4.输出所有的海报
 function addPhotos(){
@@ -16,8 +23,15 @@ function addPhotos(){
         html.push(_html);
     }
     g('#wrap').innerHTML = html.join('');
+    rsort(random([0,data.length]));
 }
 addPhotos();
+
+//5.排序海报
+function rsort(n){
+    var photo_center = g('#photo_'+n);
+    photo_center.className += ' photo_center';
+}
 
 //1.翻面控制
 function turn(elem){
