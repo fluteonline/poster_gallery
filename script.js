@@ -27,10 +27,60 @@ function addPhotos(){
 }
 addPhotos();
 
+//6.计算左右分区的范围
+function range(){
+    var range = {left:{x:[],y:[]},right:{x:[],y:[]}};
+
+    var wrap = {
+        w:g('#wrap').clientWidth,
+        h:g('#wrap').clientHeight
+    };
+    var photo = {
+        w:g('.photo')[0].clientWidth,
+        h:g('.photo')[0].clientHeight
+    };
+    range.wrap = wrap;
+    range.photo = photo;
+
+    range.left.x = [0-photo.w,wrap.w/2-photo.w/2];
+    range.left.y = [0-photo.h,wrap.h];
+    //range.right.x = [wrap.w/2+photo.w/2,wrap.w+photo.w];
+    range.right.x = [wrap.w/2+photo.w/2,wrap.w];
+    range.right.y = range.left.y;
+
+    return range;
+}
+
 //5.排序海报
 function rsort(n){
+    var _photo = g('.photo');
+    var photos=[];
+    for(s=0;s<_photo.length;s++){
+        _photo[s].className = _photo[s].className.replace(/\s*photo_center\s*/,'');
+        photos.push(_photo[s]);
+    }
+
     var photo_center = g('#photo_'+n);
-    photo_center.className += ' photo_center';
+    photo_center.className += ' photo_center ';
+    photo_center = photos.splice(n,1)[0];
+
+    //把海报分为左、右区域两个部分
+    var photo_left = photos.splice(0,Math.ceil(photos.length/2));
+    var photo_right = photos;
+
+    var ranges = range();
+    for(s in photo_left){
+        var photo = photo_left[s];
+        photo.style.left = random(ranges.left.x)+'px';
+        photo.style.top = random(ranges.left.y)+'px';
+        photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg)';
+    }
+    for(s in photo_right){
+        var photo = photo_right[s];
+        photo.style.left = random(ranges.right.x)+'px';
+        photo.style.top = random(ranges.right.y)+'px';
+        photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg)';
+    }
 }
 
 //1.翻面控制
