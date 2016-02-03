@@ -24,7 +24,7 @@ function addPhotos(){
     for(s in data){
         var _html = template.replace('{{index}}',s).replace('{{img}}',data[s].img).replace('{{caption}}',data[s].caption).replace('{{desc}}',data[s].desc);
         html.push(_html);
-        nav.push('<span id="nav_' + s + '" onclick="turn(g(\'#photo_' + s + '\'))" class="i">&nbsp;</span>');
+        nav.push('<span id="nav_' + s + '" onclick="turn(g(\'#photo_' + s + '\'))" class="i"></span>');
     }
     html.push('<div class="nav">'+ nav.join('') +'</div>');
     g('#wrap').innerHTML = html.join('');
@@ -86,6 +86,13 @@ function rsort(n){
         photo.style.top = random(ranges.right.y)+'px';
         photo.style['-webkit-transform'] = 'rotate('+random([-150,150])+'deg)';
     }
+    //控制按钮处理
+    var navs = g('.i');
+    for(var s=0;s<navs.length;s++){
+        navs[s].className = navs[s].className.replace(/\s*i_current\s*/,'');
+        navs[s].className = navs[s].className.replace(/\s*i_back\s*/,'');
+    }
+    g('#nav_'+n).className += ' i_current ';
 }
 
 //1.翻面控制

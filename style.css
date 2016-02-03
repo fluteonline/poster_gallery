@@ -128,3 +128,53 @@ body{
     -moz-transform:rotateY(180deg);
     transform:rotateY(180deg);
 }
+/*控制按钮的样式*/
+@font-face{
+    font-family: 'icons';
+    src: url('fonts/iconfont.woff') format('woff');
+    font-weight:normal;
+    font-style:normal;
+}
+.nav{
+    width:80%;
+    height:30px;
+    line-height:30px;
+    position:absolute;
+    left:10%;
+    bottom:20px;
+    z-index:999;
+    background-color:#fff;
+    text-align:center;
+}
+/*普通样式*/
+.nav .i{
+    width:30px;
+    height:30px;
+    display:inline-block;
+    cursor:pointer;
+    background-color:#aaa;
+    text-align:center;
+    border-radius:50%;
+    -webkit-transform: scale(.48);
+    -moz-transform: scale(.48);
+    transform: scale(.48);
+}
+.nav .i:after{
+    content:"\e6d2";
+    font-family: 'icons';
+    font-size:18px;
+    display:inline-block;
+    line-height:30px;
+    text-align:center;
+    color:#fff;
+}
+/*选中样式*/
+.nav .i_current{
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1);
+}
+/*背面样式*/
+.nav .i_back{
+
+}
