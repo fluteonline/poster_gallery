@@ -18,10 +18,15 @@ function random(range){
 function addPhotos(){
     var template = g('#wrap').innerHTML;
     var html = [];
+    var nav = [];
+
+    //7.输出控制按钮，每一个控制按钮，对应一个海报
     for(s in data){
         var _html = template.replace('{{index}}',s).replace('{{img}}',data[s].img).replace('{{caption}}',data[s].caption).replace('{{desc}}',data[s].desc);
         html.push(_html);
+        nav.push('<span id="nav_' + s + '" onclick="turn(g(\'#photo_' + s + '\'))" class="i">&nbsp;</span>');
     }
+    html.push('<div class="nav">'+ nav.join('') +'</div>');
     g('#wrap').innerHTML = html.join('');
     rsort(random([0,data.length]));
 }
