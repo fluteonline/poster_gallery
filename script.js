@@ -62,6 +62,14 @@ function rsort(n){
     var photos=[];
     for(s=0;s<_photo.length;s++){
         _photo[s].className = _photo[s].className.replace(/\s*photo_center\s*/,'');
+        _photo[s].className = _photo[s].className.replace(/\s*photo_front\s*/,'');
+        _photo[s].className = _photo[s].className.replace(/\s*photo_back\s*/,'');
+        _photo[s].className += ' photo_front';
+        _photo[s].style.left='';
+        _photo[s].style.top='';
+        _photo[s].style['-webkit-transform']='rotate(360deg)';
+        _photo[s].style['-moz-transform']='rotate(360deg)';
+        _photo[s].style['transform']='rotate(360deg)';
         photos.push(_photo[s]);
     }
 
@@ -98,10 +106,17 @@ function rsort(n){
 //1.翻面控制
 function turn(elem){
     var cls = elem.className;
+    var n = elem.id.split('_')[1];
+
+    if(!/photo_center/.test(cls)){
+        return rsort(n);
+    }
     if(/photo_front/.test(cls)){
         cls = cls.replace(/photo_front/,'photo_back');
+        g('#nav_'+n).className += ' i_back ';
     }else{
         cls = cls.replace(/photo_back/,'photo_front');
+        g('#nav_'+n).className = g('#nav_'+n).className.replace(/\s*i_back\s*/,'');
     }
     return elem.className = cls;
 }
